@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { signup, login } from "../api";
+import { motion } from "framer-motion";
 
 function Home({ setUser }) {
   const [isLogin, setIsLogin] = useState(true);
@@ -17,21 +18,50 @@ function Home({ setUser }) {
   };
 
   return (
-    <div className="container">
-      <h1 style={{ color: "#00e676", textAlign: "center" }}>Welcome to LLW Lite Terminal</h1>
+    <motion.div
+      className="container"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.7 }}
+    >
+      {/* 🖥️ Typewriter Title */}
+      <motion.h1
+        style={{ color: "#00e676", textAlign: "center", fontFamily: "Fira Code, monospace" }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        {Array.from("Welcome to LLW Lite Terminal").map((char, i) => (
+          <motion.span
+            key={i}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: i * 0.05 }}
+          >
+            {char}
+          </motion.span>
+        ))}
+      </motion.h1>
+
       <p style={{ textAlign: "center" }}>
         A futuristic cloud terminal where you can run commands directly on your GitHub repositories.
       </p>
 
-      {/* Hero Image */}
-      <img
+      <motion.img
         src="https://images.unsplash.com/photo-1518770660439-4636190af475"
         alt="Terminal illustration"
         style={{ width: "100%", borderRadius: "12px", marginBottom: "20px" }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
       />
 
-      {/* Features */}
-      <div style={{ display: "flex", gap: "20px", flexWrap: "wrap", marginBottom: "20px" }}>
+      <motion.div
+        style={{ display: "flex", gap: "20px", flexWrap: "wrap", marginBottom: "20px" }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 0.3 }}
+      >
         <div className="card" style={{ flex: 1 }}>
           <img src="https://cdn.worldvectorlogo.com/logos/nodejs-icon.svg" alt="Node.js" width="50" />
           <h3>Run Node.js Commands</h3>
@@ -47,10 +77,15 @@ function Home({ setUser }) {
           <h3>GitHub Integration</h3>
           <p>Link your repositories and run commands inside them directly from your browser.</p>
         </div>
-      </div>
+      </motion.div>
 
-      {/* Auth Card */}
-      <div className="card" style={{ maxWidth: "400px", margin: "auto" }}>
+      <motion.div
+        className="card"
+        style={{ maxWidth: "400px", margin: "auto" }}
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
         <h2>{isLogin ? "Login" : "Sign Up"}</h2>
         <form onSubmit={handleSubmit}>
           {!isLogin && (
@@ -84,8 +119,8 @@ function Home({ setUser }) {
             {isLogin ? "Sign Up" : "Login"}
           </a>
         </p>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }
 
