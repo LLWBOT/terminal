@@ -1,4 +1,4 @@
-const API_URL = "https://your-ngrok-url"; // replace with backend URL
+const API_URL = "https://yelling-basilisk-primellw-06ef64da.koyeb.app"; // replace with backend URL
 
 export async function signup(username, email, password) {
   const res = await fetch(`${API_URL}/signup`, {
