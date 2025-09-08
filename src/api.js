@@ -7,7 +7,7 @@ const API_URL =
 
 // -------- Authentication --------
 export async function signup(username, email, password) {
-  const res = await fetch(`${API_URL}/api/signup`, {
+  const res = await fetch(`${API_URL}/api/auth/signup`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ username, email, password }),
@@ -16,7 +16,7 @@ export async function signup(username, email, password) {
 }
 
 export async function login(email, password) {
-  const res = await fetch(`${API_URL}/api/login`, {
+  const res = await fetch(`${API_URL}/api/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, password }),
