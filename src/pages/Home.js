@@ -1,19 +1,35 @@
 import React, { useState } from "react";
 import { signup, login } from "../api";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 function Home({ setUser }) {
   const [isLogin, setIsLogin] = useState(true);
   const [form, setForm] = useState({ username: "", email: "", password: "" });
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    let res;
+
     if (isLogin) {
-      const res = await login(form.email, form.password);
-      if (res.success) setUser(res.user);
+      res = await login(form.email, form.password);
     } else {
-      const res = await signup(form.username, form.email, form.password);
-      if (res.success) setUser(res.user);
+      res = await signup(form.username, form.email, form.password);
+    }
+
+    if (res.success) {
+      // Save token + user in localStorage
+      localStorage.setItem("token", res.token);
+      localStorage.setItem("user", JSON.stringify(res.user));
+
+      // Update React state
+      setUser(res.user);
+
+      // Redirect to dashboard (you can change this route if needed)
+      navigate("/dashboard");
+    } else {
+      alert(res.message || "Something went wrong");
     }
   };
 
